@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KRISTINE FAYE CLEOFE - Academic Portfolio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-pink: #ff1493;
+      --dark-pink: #c70068;
+      --light-pink: #ffe6f3;
+      --accent-pink: #ff66c4;
+      --text-dark: #1e293b;
+      --text-muted: #475569;
+      --white: #ffffff;
+      --glass-bg: rgba(255, 255, 255, 0.88);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      line-height: 1.6;
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ff1493 0%, #ff80bf 100%);
+      z-index: -2;
+    }
+
+    .reveal-slide-up {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-slide-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-slide-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-slide-up.reveal-active,
+    .reveal-slide-left.reveal-active,
+    .reveal-slide-right.reveal-active,
+    .reveal-scale.reveal-active {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* After the reveal finishes, drop the stagger delay and restore fast hover transitions */
+    .card.reveal-done {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      transition-delay: 0s;
+    }
+
+    .card.reveal-done:hover {
+      transform: translateY(-4px);
+    }
+
+    .grid-3 .card:nth-child(1), .grid-2 .card:nth-child(1) { transition-delay: 0.1s; }
+    .grid-3 .card:nth-child(2), .grid-2 .card:nth-child(2) { transition-delay: 0.25s; }
+    .grid-3 .card:nth-child(3), .grid-2 .card:nth-child(3) { transition-delay: 0.4s; }
+    .grid-3 .card:nth-child(4), .grid-2 .card:nth-child(4) { transition-delay: 0.55s; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 20, 147, 0.2);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .profile-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .header-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      border: 2px solid var(--primary-pink);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      background-color: var(--light-pink);
+    }
+
+    .brand-titles h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+    }
+
+    .brand-titles p {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--primary-pink);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      color: var(--text-dark);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .nav-btn:hover {
+      color: var(--primary-pink);
+      background-color: rgba(255, 20, 147, 0.08);
+    }
+
+    .nav-btn.active {
+      background-color: var(--primary-pink);
+      color: var(--white);
+      box-shadow: 0 2px 8px rgba(255, 20, 147, 0.3);
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-dark);
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--white);
+      border-top: 1px solid #fee2e2;
+      padding: 1rem;
+      gap: 0.5rem;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .tab-section {
+      display: none;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+      border-bottom: 2px solid rgba(255, 20, 147, 0.15);
+      padding-bottom: 0.75rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.25rem;
+      color: var(--text-dark);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      min-height: 68vh;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 4.8rem;
+      font-weight: 700;
+      line-height: 0.95;
+      color: var(--white);
+      text-transform: uppercase;
+      text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25), 6px 6px 12px rgba(0, 0, 0, 0.2);
+      letter-spacing: 1px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--white);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+      max-width: 480px;
+      font-weight: 400;
+    }
+
+    .audio-player-card {
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 14px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 420px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .audio-visualizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 16px;
+      margin-bottom: 4px;
+    }
+
+    .eq-bar {
+      width: 3px;
+      background: var(--accent-pink);
+      border-radius: 2px;
+      height: 4px;
+      transition: height 0.2s ease;
+    }
+
+    .playing .eq-bar:nth-child(1) { animation: bounce 0.6s infinite alternate ease-in-out; }
+    .playing .eq-bar:nth-child(2) { animation: bounce 0.8s infinite alternate ease-in-out 0.2s; }
+    .playing .eq-bar:nth-child(3) { animation: bounce 0.5s infinite alternate ease-in-out 0.4s; }
+    .playing .eq-bar:nth-child(4) { animation: bounce 0.7s infinite alternate ease-in-out 0.1s; }
+
+    @keyframes bounce {
+      0% { height: 4px; }
+      100% { height: 16px; }
+    }
+
+    .audio-thumb {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: top;
+      border: 1px solid rgba(255,255,255,0.4);
+      flex-shrink: 0;
+    }
+
+    .audio-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .audio-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.35rem;
+    }
+
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .play-btn {
+      background: var(--primary-pink);
+      border: none;
+      color: var(--white);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.75rem;
+      transition: transform 0.2s, background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .play-btn:hover {
+      background: var(--dark-pink);
+      transform: scale(1.08);
+    }
+
+    .progress-bar-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .progress-bar-wrap input[type="range"] {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(255, 255, 255, 0.3);
+      height: 4px;
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .progress-bar-wrap input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--white);
+      cursor: pointer;
+    }
+
+    .audio-time {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-family: monospace;
+      flex-shrink: 0;
+    }
+
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .featured-portrait-wrap {
+      position: relative;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(8px);
+      border: 3px solid var(--white);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .featured-portrait {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      background-color: var(--light-pink);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 20, 147, 0.12);
+      box-shadow: var(--shadow-sm);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.25s ease,
+                  border-color 0.25s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(255, 20, 147, 0.3);
+    }
+
+    .card-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      background: var(--light-pink);
+      color: var(--primary-pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.35rem;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      background: var(--light-pink);
+      color: var(--dark-pink);
+      margin-bottom: 0.75rem;
+    }
+
+    .bio-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .bio-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 1.5rem;
+    }
+
+    .bio-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      border: 3px solid var(--primary-pink);
+      background-color: var(--light-pink);
+    }
+
+    .bio-details h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.8rem;
+      color: var(--text-dark);
+    }
+
+    .bio-details p {
+      font-size: 0.95rem;
+      color: var(--primary-pink);
+      font-weight: 600;
+    }
+
+    .info-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .info-item {
+      background: var(--white);
+      padding: 1rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary-pink);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .info-item strong {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .info-item span {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .quote-box {
+      border-left: 4px solid var(--primary-pink);
+      background: rgba(255, 20, 147, 0.05);
+      padding: 1.5rem;
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      color: var(--dark-pink);
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    footer {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(8px);
+      color: #94a3b8;
+      text-align: center;
+      padding: 1.25rem 1rem;
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: auto;
+    }
+
+    footer p {
+      color: #cbd5e1;
+    }
+
+    @media (max-width: 900px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+      }
+
+      .hero-left {
+        align-items: center;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+      }
+
+      .featured-portrait-wrap {
+        width: 260px;
+        height: 260px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .glass-card {
+        padding: 1.5rem;
+        border-radius: 14px;
+      }
+
+      .bio-header {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="profile-brand" onclick="switchTab('hero')">
+        <img src="profile.png" alt="Kristine Faye Cleofe" class="header-avatar" onerror="this.style.display='none'">
+        <div class="brand-titles">
+          <h1>KRISTINE FAYE CLEOFE</h1>
+          <p>BTLED MAJOR IN HOME ECONOMICS</p>
+        </div>
+      </div>
+
+      <nav class="desktop-nav">
+        <button class="nav-btn active" id="btn-hero" onclick="switchTab('hero')">ABOUT THE AUTHOR</button>
+        <button class="nav-btn" id="btn-home" onclick="switchTab('home')">HOME PAGE</button>
+        <button class="nav-btn" id="btn-courses" onclick="switchTab('courses')">COURSE SUBJECT</button>
+        <button class="nav-btn" id="btn-activities" onclick="switchTab('activities')">ACTIVITIES</button>
+        <button class="nav-btn" id="btn-reflection" onclick="switchTab('reflection')">REFLECTION</button>
+      </nav>
+
+      <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="nav-btn active" onclick="switchTab('hero')">ABOUT THE AUTHOR</button>
+      <button class="nav-btn" onclick="switchTab('home')">HOME PAGE</button>
+      <button class="nav-btn" onclick="switchTab('courses')">COURSE SUBJECT</button>
+      <button class="nav-btn" onclick="switchTab('activities')">ACTIVITIES</button>
+      <button class="nav-btn" onclick="switchTab('reflection')">REFLECTION</button>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="tab-hero" class="tab-section active">
+      <div class="hero-layout">
+        
+        <div class="hero-left reveal-slide-left">
+          <div>
+            <h2 class="hero-title">WHO IS<br>SHE?</h2>
+            <p class="hero-subtitle">
+              Future Educator in Technical-Livelihood Education specializing in Home Economics, Culinary Arts, Garment Construction & Practical Life Skills.
+            </p>
+          </div>
+
+          <div class="audio-player-card">
+            <audio id="bgAudio" src="music.mp3" preload="metadata"></audio>
+            <img src="albumphoto.png" alt="Song thumbnail" class="audio-thumb" onerror="this.style.display='none'">
+            <div class="audio-info">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="audio-title">Daylight - Taylor Swift</div>
+                <div class="audio-visualizer" id="visualizer">
+                  <div class="eq-bar"></div>
+                  <div class="eq-bar"></div>
+                  <div class="eq-bar"></div>
+                  <div class="eq-bar"></div>
+                </div>
+              </div>
+              <div class="audio-controls">
+                <button class="play-btn" id="playBtn" onclick="toggleAudio()" aria-label="Play song">
+                  <i class="fa-solid fa-play" id="playIcon"></i>
+                </button>
+                <div class="progress-bar-wrap">
+                  <input type="range" id="audioRange" value="0" max="100" oninput="seekAudio(this.value)">
+                </div>
+                <span class="audio-time" id="audioTime">00:00 / 04:53</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right reveal-slide-right">
+          <div class="featured-portrait-wrap">
+            <img src="profile.png" alt="Kristine Faye Cleofe" class="featured-portrait">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="glass-card reveal-slide-up" style="margin-top: 3rem;">
+        <div class="bio-container">
+          <div class="bio-header">
+            <img src="profile.png" alt="Kristine Faye Cleofe Profile" class="bio-avatar">
+            <div class="bio-details">
+              <h3>KRISTINE FAYE CLEOFE</h3>
+              <p>BTLED Major in Home Economics Educator</p>
+            </div>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.7;">
+            Welcome to my official academic e-portfolio. I am a dedicated student pursuing my Bachelor of Technical-Livelihood Teacher Education (BTLED) with a specialization in Home Economics. My passion lies in equipping future generations with essential life skills—ranging from culinary arts and food safety to garment construction, home management, and sustainable living practices.
+          </p>
+
+          <ul class="info-list">
+            <li class="info-item reveal-scale">
+              <strong>Full Name</strong>
+              <span>Kristine Faye Cleofe</span>
+            </li>
+            <li class="info-item reveal-scale">
+              <strong>Degree Program</strong>
+              <span>BTLED - Home Economics</span>
+            </li>
+            <li class="info-item reveal-scale">
+              <strong>Academic Focus</strong>
+              <span>Livelihood & Technology Education</span>
+            </li>
+            <li class="info-item reveal-scale">
+              <strong>Career Objective</strong>
+              <span>Professional Licensed TLE Teacher</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-home" class="tab-section">
+      <div class="glass-card reveal-slide-up">
+        <div class="section-header">
+          <h2>HOME PAGE</h2>
+        </div>
+        <p style="margin-bottom: 1.5rem; color: var(--text-muted); font-size: 1.05rem;">
+          Welcome to the digital repository of my learning journey, instructional projects, practical laboratories, and pedagogical reflections in Home Economics Education.
+        </p>
+
+        <div class="grid-3">
+          <div class="card reveal-slide-up">
+            <div class="card-icon"><i class="fa-solid fa-utensils"></i></div>
+            <h3>Culinary Arts & Nutrition</h3>
+            <p>Mastering food preparation techniques, meal management, safety, sanitation standards, and commercial kitchen practices.</p>
+          </div>
+
+          <div class="card reveal-slide-up">
+            <div class="card-icon"><i class="fa-solid fa-scissors"></i></div>
+            <h3>Clothing & Textiles</h3>
+            <p>Drafting garment patterns, executing precision sewing methods, studying textile properties, and designing functional wear.</p>
+          </div>
+
+          <div class="card reveal-slide-up">
+            <div class="card-icon"><i class="fa-solid fa-house-user"></i></div>
+            <h3>Household Management</h3>
+            <p>Promoting efficient family resource management, household budgeting, interior organization, and hospitality principles.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-courses" class="tab-section">
+      <div class="glass-card reveal-slide-up">
+        <div class="section-header">
+          <h2>COURSE SUBJECTS</h2>
+        </div>
+        
+        <div class="grid-2">
+          <div class="card reveal-slide-left">
+            <span class="badge">HE Major Course</span>
+            <h3>Food Preparation & Cookery</h3>
+            <p>Focuses on fundamental cooking methods, recipe development, standard kitchen safety, sensory evaluation, and nutritional meal planning for schools and institutions.</p>
+          </div>
+
+          <div class="card reveal-slide-right">
+            <span class="badge">Technical Skill</span>
+            <h3>Pattern Making & Sewing Technology</h3>
+            <p>Covers body measurement taking, flat pattern drafting, garment assembly using industrial sewing equipment, and creative textile embellishment.</p>
+          </div>
+
+          <div class="card reveal-slide-left">
+            <span class="badge">Professional Education</span>
+            <h3>Methodology in Teaching TLE/TVL</h3>
+            <p>Pedagogical strategies tailored for technical-vocational teaching, demo teaching frameworks, rubric design, and competency-based assessment tool creation.</p>
+          </div>
+
+          <div class="card reveal-slide-right">
+            <span class="badge">Livelihood Focus</span>
+            <h3>Handicrafts & Upcycling Arts</h3>
+            <p>Exploring sustainable handicraft production, eco-friendly resource re-use, cottage industry business planning, and artisanal craft design.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-activities" class="tab-section">
+      <div class="glass-card reveal-slide-up">
+        <div class="section-header">
+          <h2>PRACTICAL ACTIVITIES & DEMONSTRATIONS</h2>
+        </div>
+
+        <div class="grid-3">
+          <div class="card reveal-scale">
+            <div class="card-icon"><i class="fa-solid fa-fire-burner"></i></div>
+            <h3>Culinary Laboratory Demo</h3>
+            <p>Demonstration of high-standard baking techniques and food presentation, emphasizing hygiene protocol and proper tool utilization.</p>
+          </div>
+
+          <div class="card reveal-scale">
+            <div class="card-icon"><i class="fa-solid fa-shirt"></i></div>
+            <h3>Garment Drafting & Sewing</h3>
+            <p>Hands-on pattern drafting and garment fabrication showcasing clean seams, sleeve attachment, and fitting adjustments.</p>
+          </div>
+
+          <div class="card reveal-scale">
+            <div class="card-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <h3>Micro-Teaching Simulation</h3>
+            <p>Mock classroom demo teaching focused on engaging Junior High School students with interactive Home Economics learning modules.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-reflection" class="tab-section">
+      <div class="glass-card reveal-slide-up">
+        <div class="section-header">
+          <h2>TEACHING REFLECTIONS</h2>
+        </div>
+
+        <div class="quote-box reveal-slide-left">
+          "Home Economics is not merely a set of manual skills; it is the foundation of self-reliance, functional life skills, and family well-being."
+        </div>
+
+        <div class="card reveal-slide-up" style="margin-bottom: 1.5rem;">
+          <h3>The Value of Practical Skills Education</h3>
+          <p>
+            Throughout my academic journey in BTLED Major in Home Economics, I have come to appreciate how crucial practical education is for modern learners. Teaching students how to cook healthy meals, construct clothing, manage budgets, and maintain a sustainable household equips them with real-world autonomy that stays with them for a lifetime.
+          </p>
+        </div>
+
+        <div class="card reveal-slide-up">
+          <h3>Growth as a Future Educator</h3>
+          <p>
+            My experience in pedagogical training and hands-on laboratory work has taught me that effective TLE instruction requires clarity, empathy, and active participation. I aim to create an inclusive classroom environment where every student develops confidence in their technical skills and creative abilities.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© Kristine Faye Cleofe • BTLED Major in Home Economics • All Rights Reserved</p>
+  </footer>
+
+  <script>
+    let observer;
+
+    function initScrollAnimations() {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -50px 0px',
+        threshold: 0.15
+      };
+
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            el.classList.add('reveal-active');
+            observer.unobserve(el);
+            if (el.classList.contains('card')) {
+              const delay = (parseFloat(getComputedStyle(el).transitionDelay) || 0) * 1000;
+              setTimeout(() => el.classList.add('reveal-done'), delay + 900);
+            }
+          }
+        });
+      }, observerOptions);
+
+      observeElements();
+    }
+
+    function observeElements() {
+      const animatableElements = document.querySelectorAll(
+        '.tab-section.active .reveal-slide-up, ' +
+        '.tab-section.active .reveal-slide-left, ' +
+        '.tab-section.active .reveal-slide-right, ' +
+        '.tab-section.active .reveal-scale'
+      );
+
+      animatableElements.forEach(el => {
+        // Reset to the hidden state, then re-observe. unobserve() first is required:
+        // observe() on an already-observed element is a no-op, so it would never re-fire.
+        observer.unobserve(el);
+        el.classList.remove('reveal-active', 'reveal-done');
+      });
+
+      // Force a reflow so the hidden state is committed before animating in
+      void document.body.offsetHeight;
+
+      animatableElements.forEach(el => observer.observe(el));
+    }
+
+    function switchTab(tabName) {
+      const sections = document.querySelectorAll('.tab-section');
+      sections.forEach(sec => sec.classList.remove('active'));
+
+      const navButtons = document.querySelectorAll('.nav-btn');
+      navButtons.forEach(btn => btn.classList.remove('active'));
+
+      const activeSection = document.getElementById('tab-' + tabName);
+      if (activeSection) {
+        activeSection.classList.add('active');
+      }
+
+      const activeBtn = document.getElementById('btn-' + tabName);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+
+      document.getElementById('mobileMenu').classList.remove('open');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      observeElements();
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('open');
+    }
+
+    const audio = document.getElementById('bgAudio');
+    const playIcon = document.getElementById('playIcon');
+    const visualizer = document.getElementById('visualizer');
+    const audioRange = document.getElementById('audioRange');
+    const audioTime = document.getElementById('audioTime');
+
+    function fmt(t) {
+      if (!isFinite(t)) t = 0;
+      const m = Math.floor(t / 60).toString().padStart(2, '0');
+      const s = Math.floor(t % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function updateAudioUI() {
+      const dur = audio.duration || 0;
+      audioTime.innerText = `${fmt(audio.currentTime)} / ${fmt(dur)}`;
+      audioRange.value = dur ? (audio.currentTime / dur) * 100 : 0;
+    }
+
+    function setPlayingUI(playing) {
+      playIcon.className = playing ? 'fa-solid fa-pause' : 'fa-solid fa-play';
+      visualizer.classList.toggle('playing', playing);
+    }
+
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play().catch(err => console.error('Could not play music.mp3:', err));
+      } else {
+        audio.pause();
+      }
+    }
+
+    function seekAudio(val) {
+      if (audio.duration) {
+        audio.currentTime = (val / 100) * audio.duration;
+      }
+    }
+
+    audio.addEventListener('play', () => setPlayingUI(true));
+    audio.addEventListener('pause', () => setPlayingUI(false));
+    audio.addEventListener('ended', () => { setPlayingUI(false); audio.currentTime = 0; updateAudioUI(); });
+    audio.addEventListener('timeupdate', updateAudioUI);
+    audio.addEventListener('loadedmetadata', updateAudioUI);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initScrollAnimations();
+    });
+  </script>
+</body>
+</html>
