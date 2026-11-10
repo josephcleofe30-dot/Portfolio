@@ -107,6 +107,120 @@
     .ch.on { visibility: visible; }
     .ch.cur { box-shadow: inset -0.09em 0 0 currentColor; }
 
+    /* ---------- Extra motion & polish ---------- */
+    @keyframes spinSlow { to { transform: rotate(360deg); } }
+    @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    @keyframes blobDrift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(60px, -40px) scale(1.15); }
+    }
+    @keyframes sparkleUp {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.8; }
+      100% { transform: translateY(-115vh) rotate(180deg); opacity: 0; }
+    }
+
+    /* Album cover spins like a record while the song plays */
+    .audio-player-card.is-playing .audio-thumb { animation-play-state: running; }
+
+    /* Floating background layer (sits behind all content) */
+    .bg-fx {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .bg-fx .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.45;
+      animation: blobDrift 18s ease-in-out infinite alternate;
+    }
+    .bg-fx .b1 { width: 340px; height: 340px; background: #ffb3de; top: -80px; left: -80px; }
+    .bg-fx .b2 { width: 420px; height: 420px; background: #ff4fb0; bottom: -120px; right: -100px; animation-duration: 24s; }
+    .bg-fx .b3 { width: 260px; height: 260px; background: #ffffff; top: 45%; left: 55%; opacity: 0.22; animation-duration: 20s; }
+    .bg-fx .sparkle {
+      position: absolute;
+      bottom: -40px;
+      color: rgba(255, 255, 255, 0.6);
+      animation: sparkleUp linear infinite;
+    }
+
+    /* Scroll progress bar */
+    #scrollProgress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      z-index: 200;
+      transform-origin: left;
+      transform: scaleX(0);
+      background: linear-gradient(90deg, #ff1493, #ff80bf, #ffffff);
+      box-shadow: 0 0 10px rgba(255, 20, 147, 0.8);
+      pointer-events: none;
+    }
+
+    /* Back-to-top button */
+    #toTop {
+      position: fixed;
+      right: 1.1rem;
+      bottom: 1.1rem;
+      z-index: 150;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.25);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      color: var(--white);
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 0 18px 2px rgba(255, 20, 147, 0.6);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #toTop.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+    /* Portrait: gentle float + rotating light ring */
+    .featured-portrait-wrap { animation: floatY 5s ease-in-out infinite; }
+    .featured-portrait-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -14px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 45%);
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+      mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+      animation: spinSlow 6s linear infinite;
+      pointer-events: none;
+    }
+
+    /* Cards: soft pink spotlight that follows the finger / cursor */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 20, 147, 0.14), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .card:hover::before { opacity: 1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg-fx, .featured-portrait-wrap, .featured-portrait-wrap::before, .audio-thumb { animation: none !important; }
+      .bg-fx .blob, .bg-fx .sparkle { animation: none !important; }
+    }
+
     /* Stagger delay only affects the reveal, never hover */
     .grid-3 .card:nth-child(1), .grid-2 .card:nth-child(1) { --d: 0.1s; }
     .grid-3 .card:nth-child(2), .grid-2 .card:nth-child(2) { --d: 0.25s; }
@@ -345,7 +459,9 @@
     .audio-thumb {
       width: 50px;
       height: 50px;
-      border-radius: 8px;
+      border-radius: 50%;
+      animation: spinSlow 6s linear infinite;
+      animation-play-state: paused;
       object-fit: cover;
       object-position: top;
       border: 1px solid rgba(255,255,255,0.4);
@@ -467,11 +583,15 @@
     }
 
     .card {
-      background: var(--white);
+      background: transparent;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
       border-radius: 14px;
       padding: 1.5rem;
-      border: 1px solid rgba(255, 20, 147, 0.12);
-      box-shadow: var(--shadow-sm);
+      border: 1.5px solid rgba(255, 20, 147, 0.4);
+      box-shadow: 0 8px 24px rgba(255, 20, 147, 0.18);
+      position: relative;
+      overflow: hidden;
       transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s),
                   transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s),
                   translate 0.25s ease,
@@ -481,8 +601,8 @@
 
     .card:hover {
       translate: 0 -4px;
-      box-shadow: var(--shadow-lg);
-      border-color: rgba(255, 20, 147, 0.3);
+      box-shadow: 0 12px 32px rgba(255, 20, 147, 0.32);
+      border-color: rgba(255, 20, 147, 0.7);
     }
 
     .card-icon {
@@ -628,7 +748,8 @@
       }
 
       .hero-title {
-        font-size: 3.5rem;
+
+    font-size: 3.5rem;
       }
 
       .featured-portrait-wrap {
@@ -659,6 +780,16 @@
   </style>
 </head>
 <body>
+
+  <div id="scrollProgress" aria-hidden="true"></div>
+
+  <div class="bg-fx" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <button id="toTop" aria-label="Back to top">↑</button>
 
   <header>
     <div class="header-container">
@@ -691,8 +822,7 @@
       <button class="nav-btn" data-target="reflection" onclick="scrollToSection('reflection')">REFLECTION</button>
     </div>
   </header>
-
-  <main>
+<main>
 
     <section id="hero" class="page-section">
       <div class="hero-layout">
@@ -804,8 +934,7 @@
         </div>
       </div>
     </section>
-
-    <section id="courses" class="page-section">
+<section id="courses" class="page-section">
       <div class="glass-card reveal-slide-up">
         <div class="section-header">
           <h2>COURSE SUBJECTS</h2>
@@ -837,7 +966,9 @@
           </div>
         </div>
       </div>
-    </section><section id="activities" class="page-section">
+    </section>
+
+    <section id="activities" class="page-section">
       <div class="glass-card reveal-slide-up">
         <div class="section-header">
           <h2>PRACTICAL ACTIVITIES & DEMONSTRATIONS</h2>
@@ -895,7 +1026,9 @@
 
   <footer>
     <p>© Kristine Faye Cleofe • BTLED Major in Home Economics • All Rights Reserved</p>
-  </footer><script>
+  </footer>
+
+  <script>
     let observer;
 
     function initScrollAnimations() {
@@ -926,8 +1059,7 @@
 
       observeElements();
     }
-
-    function observeElements() {
+function observeElements() {
       document.querySelectorAll(
         '.reveal-slide-up, .reveal-slide-left, .reveal-slide-right, .reveal-scale'
       ).forEach(el => observer.observe(el));
@@ -957,6 +1089,12 @@
     function updateOnScroll() {
       const y = window.scrollY;
 
+      // Progress bar + back-to-top button
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      document.getElementById('scrollProgress').style.transform =
+        'scaleX(' + (maxScroll > 0 ? Math.min(1, y / maxScroll) : 0) + ')';
+      document.getElementById('toTop').classList.toggle('show', y > 500);
+
       // Scroll-spy: highlight the nav item of the section in view
       const marker = window.innerHeight * 0.35;
       let current = sectionIds[0];
@@ -971,6 +1109,7 @@
 
       scrollTicking = false;
     }
+
     window.addEventListener('scroll', () => {
       if (!scrollTicking) {
         scrollTicking = true;
@@ -997,8 +1136,7 @@
       const s = Math.floor(t % 60).toString().padStart(2, '0');
       return `${m}:${s}`;
     }
-
-    function updateAudioUI() {
+function updateAudioUI() {
       const dur = audio.duration || 0;
       audioTime.innerText = `${fmt(audio.currentTime)} / ${fmt(dur)}`;
       audioRange.value = dur ? (audio.currentTime / dur) * 100 : 0;
@@ -1007,6 +1145,7 @@
     function setPlayingUI(playing) {
       playIcon.className = playing ? 'fa-solid fa-pause' : 'fa-solid fa-play';
       visualizer.classList.toggle('playing', playing);
+      document.querySelector('.audio-player-card').classList.toggle('is-playing', playing);
     }
 
     function toggleAudio() {
@@ -1066,7 +1205,8 @@
       // ~0.8s for short titles (same as the slide), up to 1.6s for longer paragraphs
       el._duration = Math.min(1600, Math.max(800, chars.length * 14));
     }
-function renderTyped(el, n) {
+
+    function renderTyped(el, n) {
       const chars = el._chars;
       n = Math.max(0, Math.min(chars.length, n));
       if (n > el._shown) {
@@ -1131,9 +1271,37 @@ function renderTyped(el, n) {
       });
     }
 
+    function initFx() {
+      // Drifting sparkles in the background
+      const layer = document.querySelector('.bg-fx');
+      const glyphs = ['✦', '✿', '✧', '•'];
+      for (let i = 0; i < 16; i++) {
+        const s = document.createElement('span');
+        s.className = 'sparkle';
+        s.textContent = glyphs[i % glyphs.length];
+        s.style.left = (Math.random() * 100) + '%';
+        s.style.fontSize = (10 + Math.random() * 16) + 'px';
+        s.style.animationDuration = (12 + Math.random() * 14) + 's';
+        s.style.animationDelay = (-Math.random() * 20) + 's';
+        layer.appendChild(s);
+      }
+
+      // Card spotlight follows the pointer
+      document.addEventListener('pointermove', (e) => {
+        const card = e.target.closest ? e.target.closest('.card') : null;
+        if (!card) return;
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      }, { passive: true });
+
+      document.getElementById('toTop').addEventListener('click', () => scrollToSection('hero'));
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       initScrollAnimations();
       initTyping();
+      initFx();
     });
   </script>
 </body>
